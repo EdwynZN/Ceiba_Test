@@ -1,4 +1,4 @@
-import 'package:ceiba_test/feature/home.dart';
+import 'package:ceiba_test/feature/user/presentation/page/home.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
