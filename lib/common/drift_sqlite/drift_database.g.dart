@@ -340,6 +340,265 @@ class UserCompanion extends UpdateCompanion<UserTable> {
   }
 }
 
+class Post extends Table with TableInfo<Post, PostTable> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  Post(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL PRIMARY KEY');
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  late final GeneratedColumn<int> userId = GeneratedColumn<int>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
+      'title', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _bodyMeta = const VerificationMeta('body');
+  late final GeneratedColumn<String> body = GeneratedColumn<String>(
+      'body', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  @override
+  List<GeneratedColumn> get $columns => [id, userId, title, body];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'post';
+  @override
+  VerificationContext validateIntegrity(Insertable<PostTable> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('title')) {
+      context.handle(
+          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+    } else if (isInserting) {
+      context.missing(_titleMeta);
+    }
+    if (data.containsKey('body')) {
+      context.handle(
+          _bodyMeta, body.isAcceptableOrUnknown(data['body']!, _bodyMeta));
+    } else if (isInserting) {
+      context.missing(_bodyMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  PostTable map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PostTable(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}user_id'])!,
+      title: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
+      body: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}body'])!,
+    );
+  }
+
+  @override
+  Post createAlias(String alias) {
+    return Post(attachedDatabase, alias);
+  }
+
+  @override
+  List<String> get customConstraints =>
+      const ['FOREIGN KEY(user_id)REFERENCES user(id)'];
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class PostTable extends DataClass implements Insertable<PostTable> {
+  final int id;
+  final int userId;
+  final String title;
+  final String body;
+  const PostTable(
+      {required this.id,
+      required this.userId,
+      required this.title,
+      required this.body});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['user_id'] = Variable<int>(userId);
+    map['title'] = Variable<String>(title);
+    map['body'] = Variable<String>(body);
+    return map;
+  }
+
+  PostCompanion toCompanion(bool nullToAbsent) {
+    return PostCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      title: Value(title),
+      body: Value(body),
+    );
+  }
+
+  factory PostTable.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PostTable(
+      id: serializer.fromJson<int>(json['id']),
+      userId: serializer.fromJson<int>(json['user_id']),
+      title: serializer.fromJson<String>(json['title']),
+      body: serializer.fromJson<String>(json['body']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'user_id': serializer.toJson<int>(userId),
+      'title': serializer.toJson<String>(title),
+      'body': serializer.toJson<String>(body),
+    };
+  }
+
+  PostTable copyWith({int? id, int? userId, String? title, String? body}) =>
+      PostTable(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        title: title ?? this.title,
+        body: body ?? this.body,
+      );
+  PostTable copyWithCompanion(PostCompanion data) {
+    return PostTable(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      title: data.title.present ? data.title.value : this.title,
+      body: data.body.present ? data.body.value : this.body,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PostTable(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('title: $title, ')
+          ..write('body: $body')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, userId, title, body);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PostTable &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.title == this.title &&
+          other.body == this.body);
+}
+
+class PostCompanion extends UpdateCompanion<PostTable> {
+  final Value<int> id;
+  final Value<int> userId;
+  final Value<String> title;
+  final Value<String> body;
+  const PostCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.title = const Value.absent(),
+    this.body = const Value.absent(),
+  });
+  PostCompanion.insert({
+    this.id = const Value.absent(),
+    required int userId,
+    required String title,
+    required String body,
+  })  : userId = Value(userId),
+        title = Value(title),
+        body = Value(body);
+  static Insertable<PostTable> custom({
+    Expression<int>? id,
+    Expression<int>? userId,
+    Expression<String>? title,
+    Expression<String>? body,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (title != null) 'title': title,
+      if (body != null) 'body': body,
+    });
+  }
+
+  PostCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? userId,
+      Value<String>? title,
+      Value<String>? body}) {
+    return PostCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      title: title ?? this.title,
+      body: body ?? this.body,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<int>(userId.value);
+    }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (body.present) {
+      map['body'] = Variable<String>(body.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PostCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('title: $title, ')
+          ..write('body: $body')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class Address extends Table with TableInfo<Address, AddressTable> {
   @override
   final GeneratedDatabase attachedDatabase;
@@ -1069,14 +1328,17 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
   late final User user = User(this);
+  late final Post post = Post(this);
   late final Address address = Address(this);
   late final Company company = Company(this);
   late final UserDao userDao = UserDao(this as AppDatabase);
+  late final PostDao postDao = PostDao(this as AppDatabase);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [user, address, company];
+  List<DatabaseSchemaEntity> get allSchemaEntities =>
+      [user, post, address, company];
 }
 
 typedef $UserCreateCompanionBuilder = UserCompanion Function({
@@ -1249,6 +1511,147 @@ typedef $UserProcessedTableManager = ProcessedTableManager<
     $UserUpdateCompanionBuilder,
     (UserTable, BaseReferences<_$AppDatabase, User, UserTable>),
     UserTable,
+    PrefetchHooks Function()>;
+typedef $PostCreateCompanionBuilder = PostCompanion Function({
+  Value<int> id,
+  required int userId,
+  required String title,
+  required String body,
+});
+typedef $PostUpdateCompanionBuilder = PostCompanion Function({
+  Value<int> id,
+  Value<int> userId,
+  Value<String> title,
+  Value<String> body,
+});
+
+class $PostFilterComposer extends Composer<_$AppDatabase, Post> {
+  $PostFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get title => $composableBuilder(
+      column: $table.title, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get body => $composableBuilder(
+      column: $table.body, builder: (column) => ColumnFilters(column));
+}
+
+class $PostOrderingComposer extends Composer<_$AppDatabase, Post> {
+  $PostOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get title => $composableBuilder(
+      column: $table.title, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get body => $composableBuilder(
+      column: $table.body, builder: (column) => ColumnOrderings(column));
+}
+
+class $PostAnnotationComposer extends Composer<_$AppDatabase, Post> {
+  $PostAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => column);
+
+  GeneratedColumn<String> get body =>
+      $composableBuilder(column: $table.body, builder: (column) => column);
+}
+
+class $PostTableManager extends RootTableManager<
+    _$AppDatabase,
+    Post,
+    PostTable,
+    $PostFilterComposer,
+    $PostOrderingComposer,
+    $PostAnnotationComposer,
+    $PostCreateCompanionBuilder,
+    $PostUpdateCompanionBuilder,
+    (PostTable, BaseReferences<_$AppDatabase, Post, PostTable>),
+    PostTable,
+    PrefetchHooks Function()> {
+  $PostTableManager(_$AppDatabase db, Post table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $PostFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $PostOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $PostAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int> userId = const Value.absent(),
+            Value<String> title = const Value.absent(),
+            Value<String> body = const Value.absent(),
+          }) =>
+              PostCompanion(
+            id: id,
+            userId: userId,
+            title: title,
+            body: body,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required int userId,
+            required String title,
+            required String body,
+          }) =>
+              PostCompanion.insert(
+            id: id,
+            userId: userId,
+            title: title,
+            body: body,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $PostProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    Post,
+    PostTable,
+    $PostFilterComposer,
+    $PostOrderingComposer,
+    $PostAnnotationComposer,
+    $PostCreateCompanionBuilder,
+    $PostUpdateCompanionBuilder,
+    (PostTable, BaseReferences<_$AppDatabase, Post, PostTable>),
+    PostTable,
     PrefetchHooks Function()>;
 typedef $AddressCreateCompanionBuilder = AddressCompanion Function({
   Value<int> id,
@@ -1612,6 +2015,7 @@ class $AppDatabaseManager {
   final _$AppDatabase _db;
   $AppDatabaseManager(this._db);
   $UserTableManager get user => $UserTableManager(_db, _db.user);
+  $PostTableManager get post => $PostTableManager(_db, _db.post);
   $AddressTableManager get address => $AddressTableManager(_db, _db.address);
   $CompanyTableManager get company => $CompanyTableManager(_db, _db.company);
 }

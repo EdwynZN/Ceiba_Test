@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:ceiba_test/feature/post/infrastructure/data/post_dao.dart';
 import 'package:ceiba_test/feature/user/infrastructure/data/user_dao.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
@@ -14,8 +15,8 @@ part 'drift_database.g.dart';
 AppDatabase appDatabase(Ref ref) => AppDatabase();
 
 @DriftDatabase(
-  daos: [UserDao],
-  include: {'table/user_table.drift'},
+  daos: [UserDao, PostDao],
+  include: {'table/user_table.drift', 'table/post_table.drift'},
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openExecuter(AppDatabase._databaseName));

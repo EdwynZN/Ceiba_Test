@@ -1,5 +1,7 @@
 import 'package:ceiba_test/common/drift_sqlite/drift_database.dart';
+import 'package:ceiba_test/feature/post/infrastructure/data/post_dao.dart';
 import 'package:ceiba_test/feature/user/domain/model/user_read_model.dart';
+import 'package:ceiba_test/feature/user/domain/model/user_with_posts_read_model.dart';
 import 'package:ceiba_test/feature/user/domain/repository/user_read_repository.dart';
 import 'package:ceiba_test/feature/user/infrastructure/data/model/user_dto_model.dart';
 import 'package:ceiba_test/feature/user/infrastructure/data/user_api.dart';
@@ -59,14 +61,19 @@ part 'user_read_repository_impl.g.dart';
 UserReadRepository userReadRepository(Ref ref) {
   final userApi = ref.watch(userApiProvider);
   final database = ref.watch(appDatabaseProvider);
-  return UserReadRepositoryImpl(userApi, database.userDao);
+  return UserReadRepositoryImpl(userApi, database.userDao, database.postDao);
 }
 
 class UserReadRepositoryImpl implements UserReadRepository {
-  UserReadRepositoryImpl(this._userApi, this._userDao);
+  UserReadRepositoryImpl(
+    this._userApi,
+    this._userDao,
+    this._postDao,
+  );
 
   final UserApi _userApi;
   final UserDao _userDao;
+  final PostDao _postDao;
 
   @override
   Future<List<UserReadModel>> getUsers({String? name}) async {
@@ -83,5 +90,27 @@ class UserReadRepositoryImpl implements UserReadRepository {
     );
 
     return _userDao.fetchAll(name: name);
+  }
+
+  @override
+  Future<UserWithPostsReadModel> getUserWithPosts(int userId) async {
+    /* final hasPosts = await _userDao.existUserPosts(userId);
+    if (hasPosts) {
+      return _userDao.fetchUserWithPosts(userId);
+    } */
+    final userWithposts = await _userApi.getPostsByUser(userId: userId);
+    final posts = userWithposts
+        .map(
+          (u) => PostTable(
+            id: u.id,
+            userId: u.userId,
+            title: u.title,
+            body: u.body,
+          ),
+        )
+        .toList();
+
+    await _postDao.insertAll(posts: posts);
+    return _userDao.fetchUserWithPosts(userId);
   }
 }

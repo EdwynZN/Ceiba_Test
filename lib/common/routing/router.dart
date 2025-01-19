@@ -1,3 +1,4 @@
+import 'package:ceiba_test/feature/post/presentation/page/user_post_page.dart';
 import 'package:ceiba_test/feature/user/presentation/page/home.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -12,6 +13,15 @@ GoRouter router(Ref ref) {
       GoRoute(
         path: '/',
         builder: (context, state) => const HomePage(),
+        routes: [
+          GoRoute(
+            name: 'userPosts',
+            path: 'user/:id/posts',
+            builder: (context, state) => UserPostPage(
+              userId: int.parse(state.pathParameters['id']!),
+            ),
+          ),
+        ],
       ),
     ],
   );

@@ -1,15 +1,20 @@
 import 'package:ceiba_test/common/drift_sqlite/drift_database.dart';
 import 'package:ceiba_test/feature/user/domain/model/user_read_model.dart';
+import 'package:ceiba_test/feature/user/domain/model/user_with_posts_read_model.dart';
 import 'package:ceiba_test/feature/user/infrastructure/data/model/user_dto_model.dart';
 import 'package:drift/drift.dart';
 
 part 'user_dao.g.dart';
 
 @DriftAccessor(
-  include: {'../../../../common/drift_sqlite/table/user_table.drift'},
+  tables: [User, Address, Company, Post],
+  include: {
+    '../../../../common/drift_sqlite/table/user_table.drift',
+    '../../../../common/drift_sqlite/table/post_table.drift',
+  },
 )
 class UserDao extends DatabaseAccessor<AppDatabase> with _$UserDaoMixin {
-  UserDao(super.db);
+  UserDao(super.attachedDatabase);
 
   Future<List<UserReadModel>> fetchAll({String? name}) async {
     final query = select(user);
@@ -80,5 +85,47 @@ class UserDao extends DatabaseAccessor<AppDatabase> with _$UserDaoMixin {
         ..insertAll(address, addresses, mode: InsertMode.insertOrReplace)
         ..insertAll(company, companies, mode: InsertMode.insertOrReplace);
     });
+  }
+
+  Future<bool> existUserPosts(int userId) async {
+    final query = selectOnly(post)
+      ..addColumns([post.userId])
+      ..where(post.userId.equals(userId))
+      ..limit(1);
+
+    final result = await query.get();
+    return result.isNotEmpty;
+  }
+
+  Future<UserWithPostsReadModel> fetchUserWithPosts(int userId) async {
+    final query = select(post).join([
+      innerJoin(user, user.id.equalsExp(post.userId)),
+    ])
+      ..where(post.userId.equals(userId));
+
+    final result = await query.get();
+
+    if (result.isEmpty) {
+      throw Exception();
+    }
+
+    final posts = result.map<PostReadModel>((p0) {
+      final singlePost = p0.readTable(post);
+      return PostReadModel(
+        id: singlePost.id,
+        title: singlePost.title,
+        body: singlePost.body,
+      );
+    }).toList();
+
+    final singleUser = result.first.readTable(user);
+
+    return UserWithPostsReadModel(
+      id: singleUser.id,
+      name: singleUser.name,
+      phone: singleUser.phone,
+      email: singleUser.email,
+      posts: posts,
+    );
   }
 }

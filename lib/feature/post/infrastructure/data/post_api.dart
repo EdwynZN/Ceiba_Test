@@ -1,25 +1,24 @@
 import 'package:ceiba_test/common/http/dio_adapter.dart';
 import 'package:ceiba_test/feature/post/infrastructure/data/model/post_dto_model.dart';
-import 'package:ceiba_test/feature/user/infrastructure/data/model/user_dto_model.dart';
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'user_api.g.dart';
+part 'post_api.g.dart';
 
 @riverpod
-UserApi userApi(Ref ref) {
+PostApi postApi(Ref ref) {
   final dio = ref.watch(dioProvider);
-  return UserApi(dio);
+  return PostApi(dio);
 }
 
 @RestApi()
-abstract class UserApi {
-  factory UserApi(Dio dio, {String baseUrl}) = _UserApi;
+abstract class PostApi {
+  factory PostApi(Dio dio, {String baseUrl}) = _PostApi;
 
-  @GET('users')
-  Future<List<UserDTOModel>> getUsers({
+  @GET('posts')
+  Future<List<PostDTOModel>> getPosts({
     @CancelRequest() CancelToken? cancelToken,
   });
 

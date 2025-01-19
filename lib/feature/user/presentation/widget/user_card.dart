@@ -1,5 +1,6 @@
 import 'package:ceiba_test/feature/user/domain/model/user_read_model.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class UserCard extends StatelessWidget {
   const UserCard({required this.userReadModel, super.key});
@@ -26,7 +27,12 @@ class UserCard extends StatelessWidget {
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.pushNamed(
+                    'userPosts',
+                    pathParameters: {'id': userReadModel.id.toString()},
+                  );
+                },
                 child: const Text('Ver publicaciones'),
               ),
             ),
@@ -51,10 +57,7 @@ class _RowInformation extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       spacing: 4,
-      children: [
-        Icon(iconData),
-        Text(text),
-      ],
+      children: [Icon(iconData), Text(text)],
     );
   }
 }

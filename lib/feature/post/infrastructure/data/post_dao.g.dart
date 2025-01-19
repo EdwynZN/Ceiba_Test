@@ -1,9 +1,9 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_dao.dart';
+part of 'post_dao.dart';
 
 // ignore_for_file: type=lint
-mixin _$UserDaoMixin on DatabaseAccessor<AppDatabase> {
+mixin _$PostDaoMixin on DatabaseAccessor<AppDatabase> {
   User get user => attachedDatabase.user;
   Post get post => attachedDatabase.post;
   Address get address => attachedDatabase.address;

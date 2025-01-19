@@ -7,7 +7,7 @@ part of 'user_read_repository_impl.dart';
 // **************************************************************************
 
 String _$userReadRepositoryHash() =>
-    r'fc320232fc3160bdb833b703a0e3d6d655013773';
+    r'24c6226cade7a9f74983360c5d63b0980f465ee0';
 
 /// See also [userReadRepository].
 @ProviderFor(userReadRepository)

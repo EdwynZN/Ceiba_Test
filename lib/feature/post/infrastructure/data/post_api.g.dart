@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_api.dart';
+part of 'post_api.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'user_api.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
-class _UserApi implements UserApi {
-  _UserApi(
+class _PostApi implements PostApi {
+  _PostApi(
     this._dio, {
     this.baseUrl,
     this.errorLogger,
@@ -22,20 +22,20 @@ class _UserApi implements UserApi {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<List<UserDTOModel>> getUsers({CancelToken? cancelToken}) async {
+  Future<List<PostDTOModel>> getPosts({CancelToken? cancelToken}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<UserDTOModel>>(Options(
+    final _options = _setStreamType<List<PostDTOModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          'users',
+          'posts',
           queryParameters: queryParameters,
           data: _data,
           cancelToken: cancelToken,
@@ -46,10 +46,10 @@ class _UserApi implements UserApi {
           baseUrl,
         )));
     final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<UserDTOModel> _value;
+    late List<PostDTOModel> _value;
     try {
       _value = _result.data!
-          .map((dynamic i) => UserDTOModel.fromJson(i as Map<String, dynamic>))
+          .map((dynamic i) => PostDTOModel.fromJson(i as Map<String, dynamic>))
           .toList();
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
@@ -133,21 +133,21 @@ class _UserApi implements UserApi {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$userApiHash() => r'dc44bb7b0f1af89417c57f62fd372d1ee2a75819';
+String _$postApiHash() => r'450b2fbd3a0b0d1bd09d4fde2f1b37b4c5b103f0';
 
-/// See also [userApi].
-@ProviderFor(userApi)
-final userApiProvider = AutoDisposeProvider<UserApi>.internal(
-  userApi,
-  name: r'userApiProvider',
+/// See also [postApi].
+@ProviderFor(postApi)
+final postApiProvider = AutoDisposeProvider<PostApi>.internal(
+  postApi,
+  name: r'postApiProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$userApiHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$postApiHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef UserApiRef = AutoDisposeProviderRef<UserApi>;
+typedef PostApiRef = AutoDisposeProviderRef<PostApi>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
