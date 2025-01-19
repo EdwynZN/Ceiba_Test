@@ -39,6 +39,7 @@ class AddressDTOModel with _$AddressDTOModel {
     required String street,
     required String suite,
     required String city,
+    required GeoDTOModel geo,
     @JsonKey(name: 'zipcode') required String zipCode,
   }) = _AddressDTOModel;
 
@@ -50,7 +51,7 @@ class AddressDTOModel with _$AddressDTOModel {
 class GeoDTOModel with _$GeoDTOModel {
   const factory GeoDTOModel({
     @JsonKey(fromJson: _stringToDouble) required double lat,
-    @JsonKey(fromJson: _stringToDouble) required double long,
+    @JsonKey(name: 'lng', fromJson: _stringToDouble) required double long,
   }) = _GeoDTOModel;
 
   factory GeoDTOModel.fromJson(Map<String, dynamic> json) =>

@@ -1,0 +1,33 @@
+CREATE TABLE IF NOT EXISTS user(
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    username TEXT NOT NULL,
+    email TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    website TEXT NOT NULL
+) AS UserTable;
+
+-- One-to-Many VO relationship between address and user
+CREATE TABLE IF NOT EXISTS address(
+    id INTEGER NOT NULL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    street TEXT NOT NULL,
+    suite TEXT NOT NULL,
+    city TEXT NOT NULL,
+    zipCode TEXT NOT NULL,
+    lat REAL NOT NULL,
+    long REAL NOT NULL,
+    FOREIGN KEY(user_id) REFERENCES user(id),
+    UNIQUE (user_id)
+) AS AddressTable;
+
+-- One-to-Many VO relationship between company and user
+CREATE TABLE IF NOT EXISTS company(
+    id INTEGER NOT NULL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    catchPhrase TEXT NOT NULL,
+    bs TEXT NOT NULL,
+    FOREIGN KEY(user_id) REFERENCES user(id),
+    UNIQUE (user_id)
+) AS CompanyTable;

@@ -54,6 +54,7 @@ _$AddressDTOModelImpl _$$AddressDTOModelImplFromJson(
       street: json['street'] as String,
       suite: json['suite'] as String,
       city: json['city'] as String,
+      geo: GeoDTOModel.fromJson(json['geo'] as Map<String, dynamic>),
       zipCode: json['zipcode'] as String,
     );
 
@@ -63,17 +64,18 @@ Map<String, dynamic> _$$AddressDTOModelImplToJson(
       'street': instance.street,
       'suite': instance.suite,
       'city': instance.city,
+      'geo': instance.geo.toJson(),
       'zipcode': instance.zipCode,
     };
 
 _$GeoDTOModelImpl _$$GeoDTOModelImplFromJson(Map<String, dynamic> json) =>
     _$GeoDTOModelImpl(
       lat: _stringToDouble(json['lat']),
-      long: _stringToDouble(json['long']),
+      long: _stringToDouble(json['lng']),
     );
 
 Map<String, dynamic> _$$GeoDTOModelImplToJson(_$GeoDTOModelImpl instance) =>
     <String, dynamic>{
       'lat': instance.lat,
-      'long': instance.long,
+      'lng': instance.long,
     };

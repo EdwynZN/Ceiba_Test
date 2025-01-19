@@ -533,6 +533,7 @@ mixin _$AddressDTOModel {
   String get street => throw _privateConstructorUsedError;
   String get suite => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
+  GeoDTOModel get geo => throw _privateConstructorUsedError;
   @JsonKey(name: 'zipcode')
   String get zipCode => throw _privateConstructorUsedError;
 
@@ -556,7 +557,10 @@ abstract class $AddressDTOModelCopyWith<$Res> {
       {String street,
       String suite,
       String city,
+      GeoDTOModel geo,
       @JsonKey(name: 'zipcode') String zipCode});
+
+  $GeoDTOModelCopyWith<$Res> get geo;
 }
 
 /// @nodoc
@@ -577,6 +581,7 @@ class _$AddressDTOModelCopyWithImpl<$Res, $Val extends AddressDTOModel>
     Object? street = null,
     Object? suite = null,
     Object? city = null,
+    Object? geo = null,
     Object? zipCode = null,
   }) {
     return _then(_value.copyWith(
@@ -592,11 +597,25 @@ class _$AddressDTOModelCopyWithImpl<$Res, $Val extends AddressDTOModel>
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as String,
+      geo: null == geo
+          ? _value.geo
+          : geo // ignore: cast_nullable_to_non_nullable
+              as GeoDTOModel,
       zipCode: null == zipCode
           ? _value.zipCode
           : zipCode // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
+  }
+
+  /// Create a copy of AddressDTOModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $GeoDTOModelCopyWith<$Res> get geo {
+    return $GeoDTOModelCopyWith<$Res>(_value.geo, (value) {
+      return _then(_value.copyWith(geo: value) as $Val);
+    });
   }
 }
 
@@ -612,7 +631,11 @@ abstract class _$$AddressDTOModelImplCopyWith<$Res>
       {String street,
       String suite,
       String city,
+      GeoDTOModel geo,
       @JsonKey(name: 'zipcode') String zipCode});
+
+  @override
+  $GeoDTOModelCopyWith<$Res> get geo;
 }
 
 /// @nodoc
@@ -631,6 +654,7 @@ class __$$AddressDTOModelImplCopyWithImpl<$Res>
     Object? street = null,
     Object? suite = null,
     Object? city = null,
+    Object? geo = null,
     Object? zipCode = null,
   }) {
     return _then(_$AddressDTOModelImpl(
@@ -646,6 +670,10 @@ class __$$AddressDTOModelImplCopyWithImpl<$Res>
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as String,
+      geo: null == geo
+          ? _value.geo
+          : geo // ignore: cast_nullable_to_non_nullable
+              as GeoDTOModel,
       zipCode: null == zipCode
           ? _value.zipCode
           : zipCode // ignore: cast_nullable_to_non_nullable
@@ -661,6 +689,7 @@ class _$AddressDTOModelImpl implements _AddressDTOModel {
       {required this.street,
       required this.suite,
       required this.city,
+      required this.geo,
       @JsonKey(name: 'zipcode') required this.zipCode});
 
   factory _$AddressDTOModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -673,12 +702,14 @@ class _$AddressDTOModelImpl implements _AddressDTOModel {
   @override
   final String city;
   @override
+  final GeoDTOModel geo;
+  @override
   @JsonKey(name: 'zipcode')
   final String zipCode;
 
   @override
   String toString() {
-    return 'AddressDTOModel(street: $street, suite: $suite, city: $city, zipCode: $zipCode)';
+    return 'AddressDTOModel(street: $street, suite: $suite, city: $city, geo: $geo, zipCode: $zipCode)';
   }
 
   @override
@@ -689,12 +720,14 @@ class _$AddressDTOModelImpl implements _AddressDTOModel {
             (identical(other.street, street) || other.street == street) &&
             (identical(other.suite, suite) || other.suite == suite) &&
             (identical(other.city, city) || other.city == city) &&
+            (identical(other.geo, geo) || other.geo == geo) &&
             (identical(other.zipCode, zipCode) || other.zipCode == zipCode));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, street, suite, city, zipCode);
+  int get hashCode =>
+      Object.hash(runtimeType, street, suite, city, geo, zipCode);
 
   /// Create a copy of AddressDTOModel
   /// with the given fields replaced by the non-null parameter values.
@@ -718,6 +751,7 @@ abstract class _AddressDTOModel implements AddressDTOModel {
           {required final String street,
           required final String suite,
           required final String city,
+          required final GeoDTOModel geo,
           @JsonKey(name: 'zipcode') required final String zipCode}) =
       _$AddressDTOModelImpl;
 
@@ -730,6 +764,8 @@ abstract class _AddressDTOModel implements AddressDTOModel {
   String get suite;
   @override
   String get city;
+  @override
+  GeoDTOModel get geo;
   @override
   @JsonKey(name: 'zipcode')
   String get zipCode;
@@ -750,7 +786,7 @@ GeoDTOModel _$GeoDTOModelFromJson(Map<String, dynamic> json) {
 mixin _$GeoDTOModel {
   @JsonKey(fromJson: _stringToDouble)
   double get lat => throw _privateConstructorUsedError;
-  @JsonKey(fromJson: _stringToDouble)
+  @JsonKey(name: 'lng', fromJson: _stringToDouble)
   double get long => throw _privateConstructorUsedError;
 
   /// Serializes this GeoDTOModel to a JSON map.
@@ -771,7 +807,7 @@ abstract class $GeoDTOModelCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(fromJson: _stringToDouble) double lat,
-      @JsonKey(fromJson: _stringToDouble) double long});
+      @JsonKey(name: 'lng', fromJson: _stringToDouble) double long});
 }
 
 /// @nodoc
@@ -815,7 +851,7 @@ abstract class _$$GeoDTOModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(fromJson: _stringToDouble) double lat,
-      @JsonKey(fromJson: _stringToDouble) double long});
+      @JsonKey(name: 'lng', fromJson: _stringToDouble) double long});
 }
 
 /// @nodoc
@@ -852,7 +888,7 @@ class __$$GeoDTOModelImplCopyWithImpl<$Res>
 class _$GeoDTOModelImpl implements _GeoDTOModel {
   const _$GeoDTOModelImpl(
       {@JsonKey(fromJson: _stringToDouble) required this.lat,
-      @JsonKey(fromJson: _stringToDouble) required this.long});
+      @JsonKey(name: 'lng', fromJson: _stringToDouble) required this.long});
 
   factory _$GeoDTOModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$GeoDTOModelImplFromJson(json);
@@ -861,7 +897,7 @@ class _$GeoDTOModelImpl implements _GeoDTOModel {
   @JsonKey(fromJson: _stringToDouble)
   final double lat;
   @override
-  @JsonKey(fromJson: _stringToDouble)
+  @JsonKey(name: 'lng', fromJson: _stringToDouble)
   final double long;
 
   @override
@@ -900,9 +936,9 @@ class _$GeoDTOModelImpl implements _GeoDTOModel {
 
 abstract class _GeoDTOModel implements GeoDTOModel {
   const factory _GeoDTOModel(
-          {@JsonKey(fromJson: _stringToDouble) required final double lat,
-          @JsonKey(fromJson: _stringToDouble) required final double long}) =
-      _$GeoDTOModelImpl;
+      {@JsonKey(fromJson: _stringToDouble) required final double lat,
+      @JsonKey(name: 'lng', fromJson: _stringToDouble)
+      required final double long}) = _$GeoDTOModelImpl;
 
   factory _GeoDTOModel.fromJson(Map<String, dynamic> json) =
       _$GeoDTOModelImpl.fromJson;
@@ -911,7 +947,7 @@ abstract class _GeoDTOModel implements GeoDTOModel {
   @JsonKey(fromJson: _stringToDouble)
   double get lat;
   @override
-  @JsonKey(fromJson: _stringToDouble)
+  @JsonKey(name: 'lng', fromJson: _stringToDouble)
   double get long;
 
   /// Create a copy of GeoDTOModel
