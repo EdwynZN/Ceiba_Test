@@ -2,10 +2,7 @@ import 'package:ceiba_test/feature/user/domain/model/user_read_model.dart';
 import 'package:flutter/material.dart';
 
 class UserCard extends StatelessWidget {
-  const UserCard({
-    required this.userReadModel,
-    super.key,
-  });
+  const UserCard({required this.userReadModel, super.key});
 
   final UserReadModel userReadModel;
 
@@ -23,14 +20,8 @@ class UserCard extends StatelessWidget {
           spacing: 6,
           children: [
             Text(userReadModel.name, style: const TextStyle(fontSize: 24)),
-            _RowInformation(
-              text: userReadModel.email,
-              iconData: Icons.email,
-            ),
-            _RowInformation(
-              text: userReadModel.phone,
-              iconData: Icons.phone,
-            ),
+            _RowInformation(text: userReadModel.phone, iconData: Icons.phone),
+            _RowInformation(text: userReadModel.email, iconData: Icons.email),
             const SizedBox(height: 4),
             Align(
               alignment: Alignment.centerRight,

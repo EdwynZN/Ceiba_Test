@@ -11,8 +11,7 @@ part 'user_dao.g.dart';
 class UserDao extends DatabaseAccessor<AppDatabase> with _$UserDaoMixin {
   UserDao(super.db);
 
-  Future<List<UserReadModel>> fetchAll(
-      {String? name}) async {
+  Future<List<UserReadModel>> fetchAll({String? name}) async {
     final query = select(user);
 
     if (name != null && name.isNotEmpty) {
@@ -29,8 +28,9 @@ class UserDao extends DatabaseAccessor<AppDatabase> with _$UserDaoMixin {
     return result;
   }
 
-  Future<List<UserDTOModel>> fetchAllWithAddressAndCompany(
-      {String? name}) async {
+  Future<List<UserDTOModel>> fetchAllWithAddressAndCompany({
+    String? name,
+  }) async {
     final query = select(user).join(
       [
         leftOuterJoin(address, address.userId.equalsExp(user.id)),
