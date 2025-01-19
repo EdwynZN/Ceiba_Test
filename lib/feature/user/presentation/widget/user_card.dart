@@ -1,5 +1,7 @@
 import 'package:ceiba_test/feature/user/domain/model/user_read_model.dart';
+import 'package:ceiba_test/feature/user/presentation/widget/row_information_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
 class UserCard extends StatelessWidget {
@@ -9,10 +11,11 @@ class UserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Card(
       shape: const RoundedRectangleBorder(),
       margin: const EdgeInsets.symmetric(vertical: 8),
-      elevation: 1,
+      elevation: 2,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -20,10 +23,16 @@ class UserCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           spacing: 6,
           children: [
-            Text(userReadModel.name, style: const TextStyle(fontSize: 24)),
-            _RowInformation(text: userReadModel.phone, iconData: Icons.phone),
-            _RowInformation(text: userReadModel.email, iconData: Icons.email),
-            const SizedBox(height: 4),
+            Text(
+              userReadModel.name,
+              style: theme.textTheme.headlineSmall?.copyWith(
+                color: theme.colorScheme.primary,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            RowInformation(text: userReadModel.phone, iconData: Icons.phone),
+            RowInformation(text: userReadModel.email, iconData: Icons.email),
+            const Gap(4),
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
@@ -39,25 +48,6 @@ class UserCard extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _RowInformation extends StatelessWidget {
-  const _RowInformation({
-    required this.iconData,
-    required this.text,
-  });
-
-  final String text;
-  final IconData iconData;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      spacing: 4,
-      children: [Icon(iconData), Text(text)],
     );
   }
 }

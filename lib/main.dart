@@ -1,4 +1,5 @@
 import 'package:ceiba_test/common/routing/router.dart';
+import 'package:ceiba_test/common/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -12,6 +13,6 @@ class MainApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
-    return MaterialApp.router(routerConfig: router);
+    return MaterialApp.router(routerConfig: router, theme: lightTheme);
   }
 }

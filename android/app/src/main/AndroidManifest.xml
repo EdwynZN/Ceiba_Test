@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="ceiba_test"
+        android:label="Prueba de ingreso Flutter"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

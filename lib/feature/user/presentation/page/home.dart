@@ -5,7 +5,6 @@ import 'package:ceiba_test/feature/user/domain/model/user_read_model.dart';
 import 'package:ceiba_test/feature/user/infrastructure/user_read_repository_impl.dart';
 import 'package:ceiba_test/feature/user/presentation/widget/user_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -35,14 +34,7 @@ class HomePage extends HookWidget {
   Widget build(BuildContext context) {
     final textController = useTextEditingController();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Prueba de Ingreso'),
-        centerTitle: false,
-        backgroundColor: Colors.green,
-        systemOverlayStyle: SystemUiOverlayStyle.dark,
-        scrolledUnderElevation: 0,
-        elevation: 0,
-      ),
+      appBar: AppBar(title: const Text('Prueba de Ingreso')),
       body: Column(
         children: [
           Padding(

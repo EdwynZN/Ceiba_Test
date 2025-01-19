@@ -1,4 +1,5 @@
 import 'package:ceiba_test/feature/post/presentation/widget/post_card.dart';
+import 'package:ceiba_test/feature/post/presentation/widget/user_contact_information_card.dart';
 import 'package:ceiba_test/feature/user/domain/model/user_with_posts_read_model.dart';
 import 'package:ceiba_test/feature/user/infrastructure/user_read_repository_impl.dart';
 import 'package:flutter/material.dart';
@@ -45,31 +46,56 @@ class _UserAccountBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final posts = userWithPostsReadModel.posts;
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 8,
+          child: UserContactInformationCard(
+            email: userWithPostsReadModel.email,
+            phone: userWithPostsReadModel.phone,
+          ),
+        ),
+        SliverPadding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          sliver: SliverToBoxAdapter(
+            child: Row(
+              spacing: 12,
               children: [
-                Text(userWithPostsReadModel.phone),
-                Text(userWithPostsReadModel.email),
+                Expanded(
+                  child: Divider(
+                    thickness: 1,
+                    color: theme.colorScheme.primary,
+                  ),
+                ),
+                Text(
+                  'Publicaciones',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                Expanded(
+                  child: Divider(
+                    thickness: 1,
+                    color: theme.colorScheme.primary,
+                  ),
+                ),
               ],
             ),
           ),
         ),
         SliverSafeArea(
           top: false,
-          sliver: SliverList.builder(
-            itemBuilder: (context, index) {
-              final post = posts[index];
-              return PostCard(title: post.title, body: post.body);
-            },
-            itemCount: posts.length,
-          ),
+          sliver: posts.isEmpty
+              ? const SliverFillRemaining(
+                hasScrollBody: false,
+                child: Center(child: Text('No posts')),
+              )
+              : SliverList.builder(
+                  itemBuilder: (context, index) {
+                    final post = posts[index];
+                    return PostCard(title: post.title, body: post.body);
+                  },
+                  itemCount: posts.length,
+                ),
         ),
       ],
     );

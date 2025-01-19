@@ -8,16 +8,17 @@ class PostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Card(
-      margin: const EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 12,
+          spacing: 8,
           children: [
-            Text(title, style: const TextStyle(fontSize: 20)),
-            Text(body, style: const TextStyle(fontSize: 14)),
+            Text(title, style: textTheme.titleMedium, maxLines: 2),
+            Text(body, style: textTheme.bodyMedium),
           ],
         ),
       ),
