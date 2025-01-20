@@ -1,10 +1,10 @@
-import 'package:ceiba_test/common/drift_sqlite/drift_database.dart';
+import 'package:ceiba_test/common/database/drift_database.dart';
 import 'package:drift/drift.dart';
 
 part 'post_dao.g.dart';
 
 @DriftAccessor(
-  include: {'../../../../common/drift_sqlite/table/post_table.drift'},
+  include: {'../../../../common/database/table/post_table.drift'},
 )
 class PostDao extends DatabaseAccessor<AppDatabase> with _$PostDaoMixin {
   PostDao(super.db);

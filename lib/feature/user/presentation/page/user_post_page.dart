@@ -1,7 +1,7 @@
 import 'package:ceiba_test/feature/post/presentation/widget/post_card.dart';
-import 'package:ceiba_test/feature/post/presentation/widget/user_contact_information_card.dart';
 import 'package:ceiba_test/feature/user/domain/model/user_with_posts_read_model.dart';
 import 'package:ceiba_test/feature/user/infrastructure/user_read_repository_impl.dart';
+import 'package:ceiba_test/feature/user/presentation/widget/user_contact_information_card.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

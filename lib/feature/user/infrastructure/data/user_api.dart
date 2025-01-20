@@ -1,6 +1,6 @@
 import 'package:ceiba_test/common/http/dio_adapter.dart';
-import 'package:ceiba_test/feature/post/infrastructure/data/model/post_dto_model.dart';
 import 'package:ceiba_test/feature/user/infrastructure/data/model/user_dto_model.dart';
+import 'package:ceiba_test/feature/user/infrastructure/data/model/user_post_dto_model.dart';
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:retrofit/retrofit.dart';
@@ -24,9 +24,8 @@ abstract class UserApi {
   });
 
   @GET('posts')
-  Future<List<PostDTOModel>> getPostsByUser({
+  Future<List<UserPostDTOModel>> getPostsByUser({
     @Query('userId') required int userId,
     @CancelRequest() CancelToken? cancelToken,
   });
-
 }

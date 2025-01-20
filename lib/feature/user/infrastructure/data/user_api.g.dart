@@ -59,7 +59,7 @@ class _UserApi implements UserApi {
   }
 
   @override
-  Future<List<PostDTOModel>> getPostsByUser({
+  Future<List<UserPostDTOModel>> getPostsByUser({
     required int userId,
     CancelToken? cancelToken,
   }) async {
@@ -68,7 +68,7 @@ class _UserApi implements UserApi {
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<PostDTOModel>>(Options(
+    final _options = _setStreamType<List<UserPostDTOModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -86,10 +86,11 @@ class _UserApi implements UserApi {
           baseUrl,
         )));
     final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<PostDTOModel> _value;
+    late List<UserPostDTOModel> _value;
     try {
       _value = _result.data!
-          .map((dynamic i) => PostDTOModel.fromJson(i as Map<String, dynamic>))
+          .map((dynamic i) =>
+              UserPostDTOModel.fromJson(i as Map<String, dynamic>))
           .toList();
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);

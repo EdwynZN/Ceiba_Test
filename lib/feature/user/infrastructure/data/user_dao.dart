@@ -1,4 +1,4 @@
-import 'package:ceiba_test/common/drift_sqlite/drift_database.dart';
+import 'package:ceiba_test/common/database/drift_database.dart';
 import 'package:ceiba_test/feature/user/domain/model/user_read_model.dart';
 import 'package:ceiba_test/feature/user/domain/model/user_with_posts_read_model.dart';
 import 'package:ceiba_test/feature/user/infrastructure/data/model/user_dto_model.dart';
@@ -9,8 +9,8 @@ part 'user_dao.g.dart';
 @DriftAccessor(
   tables: [User, Address, Company, Post],
   include: {
-    '../../../../common/drift_sqlite/table/user_table.drift',
-    '../../../../common/drift_sqlite/table/post_table.drift',
+    '../../../../common/database/table/user_table.drift',
+    '../../../../common/database/table/post_table.drift',
   },
 )
 class UserDao extends DatabaseAccessor<AppDatabase> with _$UserDaoMixin {

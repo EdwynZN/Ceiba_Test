@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'post_dto_model.dart';
+part of 'user_post_dto_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,47 +14,47 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-PostDTOModel _$PostDTOModelFromJson(Map<String, dynamic> json) {
-  return _PostDTOModel.fromJson(json);
+UserPostDTOModel _$UserPostDTOModelFromJson(Map<String, dynamic> json) {
+  return _UserPostDTOModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$PostDTOModel {
+mixin _$UserPostDTOModel {
   int get userId => throw _privateConstructorUsedError;
   int get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get body => throw _privateConstructorUsedError;
 
-  /// Serializes this PostDTOModel to a JSON map.
+  /// Serializes this UserPostDTOModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of PostDTOModel
+  /// Create a copy of UserPostDTOModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $PostDTOModelCopyWith<PostDTOModel> get copyWith =>
+  $UserPostDTOModelCopyWith<UserPostDTOModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $PostDTOModelCopyWith<$Res> {
-  factory $PostDTOModelCopyWith(
-          PostDTOModel value, $Res Function(PostDTOModel) then) =
-      _$PostDTOModelCopyWithImpl<$Res, PostDTOModel>;
+abstract class $UserPostDTOModelCopyWith<$Res> {
+  factory $UserPostDTOModelCopyWith(
+          UserPostDTOModel value, $Res Function(UserPostDTOModel) then) =
+      _$UserPostDTOModelCopyWithImpl<$Res, UserPostDTOModel>;
   @useResult
   $Res call({int userId, int id, String title, String body});
 }
 
 /// @nodoc
-class _$PostDTOModelCopyWithImpl<$Res, $Val extends PostDTOModel>
-    implements $PostDTOModelCopyWith<$Res> {
-  _$PostDTOModelCopyWithImpl(this._value, this._then);
+class _$UserPostDTOModelCopyWithImpl<$Res, $Val extends UserPostDTOModel>
+    implements $UserPostDTOModelCopyWith<$Res> {
+  _$UserPostDTOModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of PostDTOModel
+  /// Create a copy of UserPostDTOModel
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -86,25 +86,25 @@ class _$PostDTOModelCopyWithImpl<$Res, $Val extends PostDTOModel>
 }
 
 /// @nodoc
-abstract class _$$PostDTOModelImplCopyWith<$Res>
-    implements $PostDTOModelCopyWith<$Res> {
-  factory _$$PostDTOModelImplCopyWith(
-          _$PostDTOModelImpl value, $Res Function(_$PostDTOModelImpl) then) =
-      __$$PostDTOModelImplCopyWithImpl<$Res>;
+abstract class _$$UserPostDTOModelImplCopyWith<$Res>
+    implements $UserPostDTOModelCopyWith<$Res> {
+  factory _$$UserPostDTOModelImplCopyWith(_$UserPostDTOModelImpl value,
+          $Res Function(_$UserPostDTOModelImpl) then) =
+      __$$UserPostDTOModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int userId, int id, String title, String body});
 }
 
 /// @nodoc
-class __$$PostDTOModelImplCopyWithImpl<$Res>
-    extends _$PostDTOModelCopyWithImpl<$Res, _$PostDTOModelImpl>
-    implements _$$PostDTOModelImplCopyWith<$Res> {
-  __$$PostDTOModelImplCopyWithImpl(
-      _$PostDTOModelImpl _value, $Res Function(_$PostDTOModelImpl) _then)
+class __$$UserPostDTOModelImplCopyWithImpl<$Res>
+    extends _$UserPostDTOModelCopyWithImpl<$Res, _$UserPostDTOModelImpl>
+    implements _$$UserPostDTOModelImplCopyWith<$Res> {
+  __$$UserPostDTOModelImplCopyWithImpl(_$UserPostDTOModelImpl _value,
+      $Res Function(_$UserPostDTOModelImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of PostDTOModel
+  /// Create a copy of UserPostDTOModel
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -114,7 +114,7 @@ class __$$PostDTOModelImplCopyWithImpl<$Res>
     Object? title = null,
     Object? body = null,
   }) {
-    return _then(_$PostDTOModelImpl(
+    return _then(_$UserPostDTOModelImpl(
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -137,15 +137,15 @@ class __$$PostDTOModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PostDTOModelImpl implements _PostDTOModel {
-  const _$PostDTOModelImpl(
+class _$UserPostDTOModelImpl implements _UserPostDTOModel {
+  const _$UserPostDTOModelImpl(
       {required this.userId,
       required this.id,
       required this.title,
       required this.body});
 
-  factory _$PostDTOModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PostDTOModelImplFromJson(json);
+  factory _$UserPostDTOModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserPostDTOModelImplFromJson(json);
 
   @override
   final int userId;
@@ -158,14 +158,14 @@ class _$PostDTOModelImpl implements _PostDTOModel {
 
   @override
   String toString() {
-    return 'PostDTOModel(userId: $userId, id: $id, title: $title, body: $body)';
+    return 'UserPostDTOModel(userId: $userId, id: $id, title: $title, body: $body)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PostDTOModelImpl &&
+            other is _$UserPostDTOModelImpl &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
@@ -176,31 +176,32 @@ class _$PostDTOModelImpl implements _PostDTOModel {
   @override
   int get hashCode => Object.hash(runtimeType, userId, id, title, body);
 
-  /// Create a copy of PostDTOModel
+  /// Create a copy of UserPostDTOModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$PostDTOModelImplCopyWith<_$PostDTOModelImpl> get copyWith =>
-      __$$PostDTOModelImplCopyWithImpl<_$PostDTOModelImpl>(this, _$identity);
+  _$$UserPostDTOModelImplCopyWith<_$UserPostDTOModelImpl> get copyWith =>
+      __$$UserPostDTOModelImplCopyWithImpl<_$UserPostDTOModelImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PostDTOModelImplToJson(
+    return _$$UserPostDTOModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _PostDTOModel implements PostDTOModel {
-  const factory _PostDTOModel(
+abstract class _UserPostDTOModel implements UserPostDTOModel {
+  const factory _UserPostDTOModel(
       {required final int userId,
       required final int id,
       required final String title,
-      required final String body}) = _$PostDTOModelImpl;
+      required final String body}) = _$UserPostDTOModelImpl;
 
-  factory _PostDTOModel.fromJson(Map<String, dynamic> json) =
-      _$PostDTOModelImpl.fromJson;
+  factory _UserPostDTOModel.fromJson(Map<String, dynamic> json) =
+      _$UserPostDTOModelImpl.fromJson;
 
   @override
   int get userId;
@@ -211,10 +212,10 @@ abstract class _PostDTOModel implements PostDTOModel {
   @override
   String get body;
 
-  /// Create a copy of PostDTOModel
+  /// Create a copy of UserPostDTOModel
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PostDTOModelImplCopyWith<_$PostDTOModelImpl> get copyWith =>
+  _$$UserPostDTOModelImplCopyWith<_$UserPostDTOModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

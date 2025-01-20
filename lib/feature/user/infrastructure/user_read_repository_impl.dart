@@ -1,4 +1,4 @@
-import 'package:ceiba_test/common/drift_sqlite/drift_database.dart';
+import 'package:ceiba_test/common/database/drift_database.dart';
 import 'package:ceiba_test/feature/post/infrastructure/data/post_dao.dart';
 import 'package:ceiba_test/feature/user/domain/model/user_read_model.dart';
 import 'package:ceiba_test/feature/user/domain/model/user_with_posts_read_model.dart';
@@ -94,10 +94,10 @@ class UserReadRepositoryImpl implements UserReadRepository {
 
   @override
   Future<UserWithPostsReadModel> getUserWithPosts(int userId) async {
-    /* final hasPosts = await _userDao.existUserPosts(userId);
+    final hasPosts = await _userDao.existUserPosts(userId);
     if (hasPosts) {
       return _userDao.fetchUserWithPosts(userId);
-    } */
+    }
     final userWithposts = await _userApi.getPostsByUser(userId: userId);
     final posts = userWithposts
         .map(
