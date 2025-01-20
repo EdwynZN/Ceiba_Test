@@ -4,6 +4,7 @@ import 'package:ceiba_test/feature/post/infrastructure/data/post_dao.dart';
 import 'package:ceiba_test/feature/user/infrastructure/data/user_dao.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
@@ -20,6 +21,9 @@ AppDatabase appDatabase(Ref ref) => AppDatabase();
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openExecuter(AppDatabase._databaseName));
+
+  @visibleForTesting
+  AppDatabase.testing() : super(NativeDatabase.memory());
 
   static const String _databaseName = 'ceiba.sqlite';
 

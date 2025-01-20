@@ -77,8 +77,9 @@ class UserReadRepositoryImpl implements UserReadRepository {
 
   @override
   Future<List<UserReadModel>> getUsers({String? name}) async {
-    final local = await _userDao.fetchAll(name: name);
-    if (local.isNotEmpty) {
+    final isPopulated = await _userDao.isPopulated();
+    if (isPopulated) {
+      final local = await _userDao.fetchAll(name: name);
       return local;
     }
     final users = await _userApi.getUsers();

@@ -16,6 +16,11 @@ part 'user_dao.g.dart';
 class UserDao extends DatabaseAccessor<AppDatabase> with _$UserDaoMixin {
   UserDao(super.attachedDatabase);
 
+  Future<bool> isPopulated() {
+    final query = select(user)..limit(1);
+    return query.get().then((s) => s.isNotEmpty);
+  }
+
   Future<List<UserReadModel>> fetchAll({String? name}) async {
     final query = select(user);
 
