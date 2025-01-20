@@ -2,10 +2,14 @@ import 'package:ceiba_test/common/database/drift_database.dart';
 import 'package:ceiba_test/feature/user/domain/repository/user_read_repository.dart';
 import 'package:ceiba_test/feature/user/infrastructure/data/user_api.dart';
 import 'package:ceiba_test/feature/user/infrastructure/user_read_repository_impl.dart';
+import 'package:ceiba_test/main.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
+import 'package:mockito/mockito.dart';
 
+import '../mock/user_data.dart';
 import 'user_read_model.dart';
 
 void main() {
@@ -22,10 +26,7 @@ void main() {
           contentType: Headers.jsonContentType,
         ),
       );
-      adapter = DioAdapter(
-        dio: dio,
-        matcher: const UrlRequestMatcher(),
-      );
+      adapter = DioAdapter(dio: dio, matcher: const UrlRequestMatcher());
     });
 
     tearDown(() async {
@@ -165,5 +166,53 @@ void main() {
       users = await repository.getUsers(name: 'Javascript');
       expect(users, isEmpty);
     });
+
+    testWidgets(
+      'UserPage Test',
+      (tester) async {
+        TestWidgetsFlutterBinding.ensureInitialized();
+        final userApi = MockUserApi();
+        final container = ProviderContainer(
+          overrides: [
+            userApiProvider.overrideWithValue(userApi),
+            appDatabaseProvider.overrideWithValue(database),
+          ],
+        );
+
+        when(userApi.getUsers(cancelToken: anyNamed('cancelToken'))).thenThrow(
+          DioException.connectionTimeout(
+            timeout: const Duration(milliseconds: 500),
+            requestOptions: RequestOptions(),
+          ),
+        );
+
+        await tester.pumpWidget(
+          UncontrolledProviderScope(
+            container: container,
+            child: const MainApp(),
+          ),
+        );
+
+        await tester.pump(const Duration(seconds: 1));
+
+        final retryButton = find.text('Reintentar');
+        expect(retryButton, findsOneWidget);
+/* 
+        reset(userApi);
+        when(userApi.getUsers(cancelToken: anyNamed('cancelToken'))).thenAnswer(
+          (_) async => usersJsonResponse.map(UserDTOModel.fromJson).toList(),
+        );
+
+        await tester.runAsync(() async => tester.tap(retryButton));
+        await container.read(usersProvider('').future);
+        await tester.pumpAndSettle(const Duration(seconds: 5));
+
+        verify(userApi.getUsers(cancelToken: anyNamed('cancelToken')))
+            .called(2);
+        print(container.read(usersProvider('')));
+
+        expect(find.byType(UserCard), findsNWidgets(3)); */
+      },
+    );
   });
 }
